@@ -51,8 +51,10 @@ jobs:
           cd ascii-banner-lsp/target/${{ matrix.target }}/release
           Compress-Archive -Path ascii-banner-lsp.exe -DestinationPath ascii-banner-lsp-${{ matrix.target }}.zip
 
-      - name: Upload
-        uses: actions/upload-artifact@v7
-        with:
-          name: ascii-banner-lsp-${{ matrix.target }}
-          path: ascii-banner-lsp/target/${{ matrix.target }}/release/ascii-banner-lsp-${{ matrix.target }}.${{ matrix.archive }}
+      - name: Upload to release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload "${{ github.ref_name }}" \
+            "ascii-banner-lsp/target/${{ matrix.target }}/release/ascii-banner-lsp-${{ matrix.target }}.${{ matrix.archive }}" \
+            --clobber
