@@ -26,7 +26,7 @@ jobs:
             asset_name: ascii-banner-lsp-aarch64-apple-darwin.tar.gz
           - target: x86_64-pc-windows-msvc
             os: windows-2025
-            asset_name: ascii-banner-lsp-x86_64-pc-windows-msvc.zip
+            asset_name: ascii-banner-lsp-x86_64-pc-windows-msvc.tar.gz
 
     steps:
       - uses: actions/checkout@v6
@@ -40,19 +40,17 @@ jobs:
         run: cargo build --release --target ${{ matrix.target }}
         working-directory: ascii-banner-lsp
 
-      - name: Package (Unix)
-        if: runner.os != 'Windows'
+      - name: Package
         shell: bash
         run: |
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            BINARY="ascii-banner-lsp.exe"
+          else
+            BINARY="ascii-banner-lsp"
+          fi
           tar -czf ${{ matrix.asset_name }} \
             -C ascii-banner-lsp/target/${{ matrix.target }}/release \
-            ascii-banner-lsp
-
-      - name: Package (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          Compress-Archive -Path ascii-banner-lsp/target/${{ matrix.target }}/release/ascii-banner-lsp.exe -DestinationPath ${{ matrix.asset_name }}
+            "$BINARY"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
