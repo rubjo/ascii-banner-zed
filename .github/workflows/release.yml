@@ -1,11 +1,11 @@
 name: Release
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 on:
   release:
     types: [published]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -41,20 +41,20 @@ jobs:
 
       - name: Package (tar.gz)
         if: matrix.archive == 'tar.gz'
+        shell: bash
         run: |
           cd ascii-banner-lsp/target/${{ matrix.target }}/release
           tar czf ascii-banner-lsp-${{ matrix.target }}.tar.gz ascii-banner-lsp
 
       - name: Package (zip)
         if: matrix.archive == 'zip'
+        shell: bash
         run: |
           cd ascii-banner-lsp/target/${{ matrix.target }}/release
-          Compress-Archive -Path ascii-banner-lsp.exe -DestinationPath ascii-banner-lsp-${{ matrix.target }}.zip
+          7z a ascii-banner-lsp-${{ matrix.target }}.zip ascii-banner-lsp.exe
 
       - name: Upload to release
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          gh release upload "${{ github.ref_name }}" \
-            "ascii-banner-lsp/target/${{ matrix.target }}/release/ascii-banner-lsp-${{ matrix.target }}.${{ matrix.archive }}" \
-            --clobber
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: ascii-banner-lsp/target/${{ matrix.target }}/release/ascii-banner-lsp-${{ matrix.target }}.${{ matrix.archive }}
