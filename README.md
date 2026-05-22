@@ -2,6 +2,8 @@
 
 Turn selected text into ASCII art banners right in the editor.
 
+<img width="2116" height="2128" alt="rec" src="https://github.com/user-attachments/assets/e985e535-5022-4326-a664-14fe62895ea5" />
+
 Select any text, open **code actions** (`cmd+.`), and pick a size:
 
 | Action | Font | Lines |
