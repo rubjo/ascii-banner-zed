@@ -1,0 +1,5 @@
+README.md
+DEV.md
+.DS_Store
+target/
+*.wasm

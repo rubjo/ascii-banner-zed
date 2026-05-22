@@ -1,0 +1,32 @@
+id = "ascii-banner"
+name = "ASCII Banner"
+version = "0.1.0"
+schema_version = 1
+authors = ["Rune B <victor.mono.font@gmail.com>"]
+description = "Converts selected text into large ASCII banners. Useful for making headers, grouping your code blocks and at-a-glance minimap navigation. And for the fun of it. 😁"
+repository = "https://github.com/rubjo/ascii-banner-zed"
+
+[language_servers.ascii-banner-lsp]
+name = "ASCII Banner LSP"
+languages = [
+  "JavaScript",
+  "TypeScript",
+  "Python",
+  "Rust",
+  "Go",
+  "Java",
+  "Ruby",
+  "PHP",
+  "C",
+  "C++",
+  "C#",
+  "HTML",
+  "CSS",
+  "JSON",
+  "Markdown",
+  "YAML",
+  "TOML",
+  "Shell Script",
+  "SQL",
+  "Plain Text",
+]

@@ -1,0 +1,12 @@
+Hello World
+Zed rocks!
+Foo bar baz
+1 + 1 = 2
+A-B-C-D-E
+x = y + z
+HTML & XML
+goto 10
+{ [ ( ) ] }
+Run! && ||
+~/.config/zed
+42 is life
