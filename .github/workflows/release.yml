@@ -1,5 +1,8 @@
 name: Release
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   release:
     types: [published]
@@ -21,11 +24,11 @@ jobs:
             os: macos-latest
             archive: tar.gz
           - target: x86_64-pc-windows-msvc
-            os: windows-latest
+            os: windows-2025
             archive: zip
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -49,7 +52,7 @@ jobs:
           Compress-Archive -Path ascii-banner-lsp.exe -DestinationPath ascii-banner-lsp-${{ matrix.target }}.zip
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ascii-banner-lsp-${{ matrix.target }}
           path: ascii-banner-lsp/target/${{ matrix.target }}/release/ascii-banner-lsp-${{ matrix.target }}.${{ matrix.archive }}
